@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<style>
+    body {
+      background-image: url('./body_bg.jpg');
+    }
+    </style>
+<html>
+<head>
+    <title>Hello World API</title>
+</head>
+<body>
+    <h1 style="text-align:center">API for Hellow World </h1>
+    <div style="text-align:center">
+    <label for="language">Select a language:</label>
+    <select id="language">
+        <option value="English">English</option>
+        <option value="French">French</option>
+        <option value="Hindi">Hindi</option>
+    </select>
+    <button id="submitButton">click here to Get Hello</button>
+    <h2 id="helloMessage"></h2>
+
+    <script>
+        const submitButton = document.getElementById('submitButton');
+        const languageSelect = document.getElementById('language');
+        const helloMessage = document.getElementById('helloMessage');
+
+        submitButton.addEventListener('click', () => {
+            const selectedLanguage = languageSelect.value;
+            fetch(`http://localhost:5000/hello?language=${selectedLanguage}`)
+                .then(response => response.text())
+                .then(message => {
+                    helloMessage.textContent = message;
+                })
+                .catch(error => {
+                    helloMessage.textContent = 'An error occurred while fetching the message.';
+                });
+        });
+    </script>
+    </div>
+</body>
+</html>
